@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brushing up my skills</title>
+</head>
+<body>
+<!-- Calculate the final take-home bonus of a company employee using the criteria below
+
+Age 18-20 => 5% of salary + Salary
+Age 21-30 => 10% of salary + Salary
+Age 31-50 => 20% of salary + Salary
+
+Note: user enters their year of birth, and current salary using a prompt
+-->
+    <h1>Employee Final Take-home Bonus</h1>
+    <h3 id="yearOfBirth"></h3>
+    <script>
+let yearOfBirth = prompt("please enter your year of birth")
+  let date = new Date()
+  let year = date.getFullYear()
+  let age = year - yearOfBirth
+  let salary = prompt("please enter your current salary")
+  let Salary = parseInt(salary)
+  if (age >= 18 && age <= 20)
+  {    document.getElementById("yearOfBirth").innerHTML = "Age : " + age
+ document.write("Your take-home bonus is #" + (5 / 100 * Salary + Salary))
+  }
+  else if (age >= 21 && age <= 30)
+  {
+  document.getElementById("yearOfBirth").innerHTML = "Age : " + age
+  document.write("Your take-home bonus is #" + (10 / 100 * Salary + Salary))
+  }
+  else if (age >= 31 && age <= 50)
+  {
+ document.getElementById("yearOfBirth").innerHTML = "Age : " + age
+  mdocument.write("Your take-home bonus is #" + (20 / 100 * Salary + Salary))
+  }
+  else
+  {
+  document.write("Sorry, you don't have a take-home bonus for your age")
+  }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter's Eligibility Status</title>
+</head>
+<body>
+  <!-- Write a program to determine if a person is eligible for voting or note
+
+    Note: voting age is 18 years
+    
+    User enters date of birth in a prompt in the format : dd/mm/yyyy
+    
+    ===
+    Validation check : it the user is to be 18 years of age by tomorrow it simply means the person cannot vote today
+    
+    Meaning you are calculating the persons age down to the day 
+    
+    Not just using the year alone
+--> 
+
+    <h3 id="dateOfBirth"></h3>
+    <script>
+
+//getting user's DOB
+      let dateOfBirth = prompt('please enter your date of birth (dd/mm/yyyy)',
+        'dd/mm/yyyy')
+
+      // today's date
+      let date = new Date()
+
+      //splitting today's date nd user's date
+      let myDate = date.toString().split(' ')
+      let userDate = dateOfBirth.split('/')
+
+      //getting the month from today's date
+      const Month = date.getMonth() + 1 //since the index starts from 0 i.e january is 0
+
+      //calculating user's age   
+      const age = date.getFullYear() - userDate[2]
+      document.getElementById('dateOfBirth').innerHTML = 'age : ' + age;
+
+      //validating the year
+      if (age > 18)
+      {
+        document.write('You Are Eligible to vote')
+      }
+
+      //validating the month
+      else if (age == 18 && (userDate[1] > Month))
+      {
+        document.write('You Are NOT Eligible to vote')
+      }
+
+      //validating the day
+      else if (age == 18 && (userDate[0] <= myDate[2]))
+      {
+        document.write('You Are Eligible to vote')
+      }
+
+      //end of validation
+      else
+      {
+        document.write('You Are NOT Eligible to vote')
+      }
+    </script>
+</body>
+</html>

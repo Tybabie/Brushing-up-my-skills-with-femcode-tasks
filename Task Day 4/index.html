@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST</title>
+</head>
+<body>
+    <h1>MY TO-DO LIST</h1>
+<input type="text" placeholder="Enter new task" id="todo">
+<button id="add" onclick="add()">Add</button>
+<div id="display"></div>
+
+    <script>
+  // A funtion that adds item from input field when user clicks on add    
+function add() {
+
+   //get value of the input field and check if it is not empty
+    let getTodo = document.getElementById('todo').value;
+    if (getTodo == '') {
+        alert('pleae enter a task')
+    } else {
+
+        //create a paragraph element to hold the todo item
+        const list = document.createElement('p');
+
+        //append the element created to the display div
+    const myTodo = document.getElementById('display').appendChild(list)
+    .innerHTML=`<li> ${getTodo}  <button id="remove"> X </button>`;
+        
+        //call the function that saves the todo item to lacalstorage
+        saveLocalTodos(getTodo);
+        document.getElementById('todo').value = ''; //this empty the input field
+    
+      //add a function to the element created that delete the todo item when user click on it  
+        list.addEventListener('click', function () {
+  let remove =  document.getElementById('display').removeChild(list);
+
+  //call the function that delete the todo item from the local storage also
+  removeLocalTodos(getTodo);
+})
+    } 
+}
+
+// A funtion that saves the todo item to local storage
+function saveLocalTodos(Todo){
+    let todos;
+
+    //check if local storage does not already have the key value todos nd create one, 
+    //else retrieve the previous, push the new item into it nd set it back into local storage
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.push(Todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    
+}
+
+//A function that deletes a todo item from local storage when user click on an item
+function removeLocalTodos(Todo) {
+    let todos;
+    if (localStorage.getItem('todos')=== null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));  
+todos.splice(todos.indexOf(Todo), 1) //this delete the exact item from the array of todo items 
+localStorage.setItem('todos', JSON.stringify(todos));  //sets back the array to effect the changes
+    }
+}
+
+//A function that get todo items from the local storage. 
+//this makes the items still remain on the screen when user reload the page
+function getTodos() {
+    let todos;
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+      
+//The forEach loop through each element of the array and display it back to the screen 
+//copied d same code in d add() function into the getTodos() function, so that it displays it same way wen page reload
+        todos.forEach(function(todo){
+        const getTodo = todo;
+        const list = document.createElement('p');
+    const myTodo = document.getElementById('display').appendChild(list)
+    .innerHTML=` <li> ${getTodo}  <button id="remove"> X </button>`; 
+    
+        list.addEventListener('click', function () {
+  let remove =  document.getElementById('display').removeChild(list)
+
+removeLocalTodos(getTodo)
+})
+    }    
+    )  } 
+}
+getTodos()
+    </script>
+</body>
+</html>
